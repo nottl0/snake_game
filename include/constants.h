@@ -1,5 +1,6 @@
 #pragma once
 
+// Definining some game constants.
 const int WINDOW_WIDTH = 400;
 const int WINDOW_HEIGHT =300;
 const int CELL_SIZE = 20;
