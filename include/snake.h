@@ -18,9 +18,11 @@ enum class Direction {
  * Handles the snakes position, movement, direction and lifespan.
  */
 class Snake {
+    
     Direction direction;            ///> Current direction of the snakes movement (where the head is pointing).
     std::vector<sf::Vector2i> body; ///> Positions of the game window cells occupied by the snake's body.
-    Direction newDirection;         ///> Where the direction of the snakes movement should point in the next step. Set by player
+    Direction newDirection;         ///> Where the direction of the snakes movement should point in the next step. Set by player.
+    
 public:
     /**
      * @brief Constructs a Snake object.

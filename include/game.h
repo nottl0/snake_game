@@ -17,7 +17,7 @@ private:
     sf::Clock clock;            ///> Clock to measure the elapsed time.
     int moveDelay;              ///> The time difference between state changes in the game.
     std::mt19937 gen;           ///> Random number generator.
-    Food food;                  ///> The food object.
+    std::unique_ptr<Food> food; ///> The pointer to an object that inherits from food.
     Snake snake;                ///> The snake object.
     sf::RenderWindow window;    ///> The main game window.
     bool isOver;                ///> The game over state. False is the game is still being played.
@@ -47,6 +47,11 @@ public:
      * @brief Processes events triggered by player such as moving/restarting.
      */
     void processEvents();
+
+    /**
+     * @brief Randomly choose what food to spawn in the game.
+     */
+    void spawnRandomFood(sf::Vector2i pos);
 
     /**
      * @brief Updates the states of game objects one step.

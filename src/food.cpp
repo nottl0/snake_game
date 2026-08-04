@@ -10,10 +10,10 @@ Food::Food(sf::Vector2i pos) : counter(0){
 
 Food::~Food() = default;
 
-void Food::respawn(sf::Vector2i pos){
-    counter = 0;
-    position = pos;
-};
+// void Food::respawn(sf::Vector2i pos){
+//     counter = 0;
+//     position = pos;
+// };
 
 void Food::incrementCounter() {
     counter += 1;

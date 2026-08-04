@@ -1,18 +1,20 @@
 #include "game.h"
+#include "growthFood.h"
 #include <iostream>
+#include <memory>
 
 sf::Font font;
 
 Game::Game() : moveDelay(MOVE_DELAY),
           gen(std::random_device{}()),
           window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "sssnake game"),
-          food(getRandPos()),
           snake(),
           isOver(false)
-    {
+    {   
         if (!font.openFromFile("/Users/aminaizbassar/Documents/snake_game/typographica-font/Typographica-Blp5.ttf")) {
             std::cout << "Failed to load font\n";
-    }
+        }
+    spawnRandomFood(getRandPos());
 }
 
 void Game::run() {
@@ -28,8 +30,12 @@ void Game::run() {
     }
 };
 
+void Game::spawnRandomFood(sf::Vector2i pos) {
+    food = std::make_unique<growthFood>(pos);
+}
+
 void Game::resetGame() {
-    food.respawn(getRandPos());
+    spawnRandomFood(getRandPos());
     snake = Snake();
     isOver = false;
 };
@@ -85,7 +91,7 @@ void Game::render(){
 
     // draw the snake and food
     snake.draw(window);
-    food.draw(window);
+    food->draw(window);
     // display all that's drawn on the window
     window.display();
 };
@@ -95,14 +101,14 @@ void Game::update(){
         // update snake's position
         snake.changeDirection();
         snake.move();
-        food.incrementCounter();
+        food->incrementCounter();
         
-        if (snake.getHeadPos() == food.getPosition()){
-            snake.grow();
-            food.respawn(getRandPos());
+        if (snake.getHeadPos() == food->getPosition()){
+            food->effect(snake); 
+            spawnRandomFood(getRandPos());
         };
-        if (food.shouldRespawn()){
-            food.respawn(getRandPos());
+        if (food->shouldRespawn()){
+            spawnRandomFood(getRandPos());
         };
         if (!snake.getPulse()){
             endGame();
