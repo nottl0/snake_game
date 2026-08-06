@@ -72,6 +72,10 @@ void Snake::grow() {
     body.push_back(tmp);
 };
 
+void Snake::shrink() {
+    body.pop_back();
+};
+
 sf::Vector2i Snake::getHeadPos() const{
     return body[0];
 };

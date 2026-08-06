@@ -36,12 +36,6 @@ public:
     void incrementCounter();
 
     /**
-     * @brief Draws the food to the given render window.
-     * @param window The SFML window to draw onto.
-     */
-    void draw(sf::RenderWindow& window) const;
-
-    /**
      * @brief Returns the food's current grid position.
      */
     sf::Vector2i getPosition() const;
@@ -58,4 +52,10 @@ public:
      * @brief A virtual method
      */
     virtual void effect(Snake& snake) const=0;
+
+        /**
+     * @brief Draws the food to the given render window.
+     * @param window The SFML window to draw onto.
+     */
+    virtual void draw(sf::RenderWindow& window) const=0;
 }; 

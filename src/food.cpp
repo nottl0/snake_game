@@ -10,11 +10,6 @@ Food::Food(sf::Vector2i pos) : counter(0){
 
 Food::~Food() = default;
 
-// void Food::respawn(sf::Vector2i pos){
-//     counter = 0;
-//     position = pos;
-// };
-
 void Food::incrementCounter() {
     counter += 1;
 };
@@ -30,11 +25,4 @@ bool Food::shouldRespawn() const {
     else{
         return false;
     }
-};
-
-void Food::draw(sf::RenderWindow& window) const {
-    sf::RectangleShape rect({CELL_SIZE, CELL_SIZE});
-    rect.setPosition(sf::Vector2f((position.x * CELL_SIZE) % WINDOW_WIDTH, (position.y * CELL_SIZE) % WINDOW_HEIGHT));
-    rect.setFillColor(sf::Color::Black);
-    window.draw(rect);
 };

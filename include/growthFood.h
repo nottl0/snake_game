@@ -18,4 +18,9 @@ public:
      * @brief Specifies the effect of growthFood on the snake
      */
     void effect(Snake& snake) const override;
+
+    /**
+     * @brief Specifies the effect of growthFood on the snake
+     */
+    void draw(sf::RenderWindow& window) const override;
 };

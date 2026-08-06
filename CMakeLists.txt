@@ -17,6 +17,7 @@ add_executable(main src/main.cpp
     src/food.cpp
     src/game.cpp
     src/growthFood.cpp
+    src/poisonFood.cpp
 )
 target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_compile_features(main PRIVATE cxx_std_17)

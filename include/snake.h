@@ -41,6 +41,11 @@ public:
     void grow();
     
     /**
+     * @brief Decreases snake size when poisoned.
+     */
+    void shrink();
+
+    /**
      * @brief Changes the direction where the snake is going based on the newDirection.
      */
     void changeDirection();
