@@ -53,7 +53,7 @@ public:
      */
     virtual void effect(Snake& snake) const=0;
 
-        /**
+    /**
      * @brief Draws the food to the given render window.
      * @param window The SFML window to draw onto.
      */

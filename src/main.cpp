@@ -3,6 +3,8 @@
 // Stuff to add: 
 // Comment cpp files
 // Add different icons for different fruit
+// check update time
+// fix initial position of food to not be on snake
 // having different fruits/bombs 
     // 0. simple onee
     // 2. shortener fruit

@@ -32,13 +32,14 @@ void Game::run() {
 };
 
 void Game::spawnRandomFood(sf::Vector2i pos) {
-static std::vector<std::function<std::unique_ptr<Food>(sf::Vector2i)>> factories = {
-    [](sf::Vector2i p) { return std::make_unique<growthFood>(p); },
-    [](sf::Vector2i p) { return std::make_unique<poisonFood>(p); }
-};
+    //A vector containing functions that take an sf::Vector2i and return a std::unique_ptr<Food>
+    static std::vector<std::function<std::unique_ptr<Food>(sf::Vector2i)>> factories = {
+        [](sf::Vector2i p) { return std::make_unique<growthFood>(p); },
+        [](sf::Vector2i p) { return std::make_unique<poisonFood>(p); }
+    };
 
-std::uniform_int_distribution<int> dist(0, factories.size() - 1);
-food = factories[dist(gen)](pos);
+    std::uniform_int_distribution<int> dist(0, factories.size() - 1);
+    food = factories[dist(gen)](pos);
 }
 
 void Game::resetGame() {
