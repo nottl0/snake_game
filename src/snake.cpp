@@ -1,6 +1,7 @@
 #include "snake.h"
 #include "constants.h"
 #include <SFML/Window.hpp>
+#include "roundedRectangle.h"
 
 // Maps each direction to a vector representing the corresponding change in position 
 const std::unordered_map<Direction, sf::Vector2i> moveDirections = {
@@ -24,10 +25,26 @@ Snake::~Snake() = default;
 
 // Draws the snake on the game window. Doesn't show righ away, the double buffering of the window will handle that when display() is called in main loop
 void Snake::draw(sf::RenderWindow& window) const {
-    for (auto p: body){
+    float rotationDegrees = 0.f;
+    switch (direction) {
+    case Direction::UP:    rotationDegrees = 0.f;   break;
+    case Direction::RIGHT: rotationDegrees = 90.f;  break;
+    case Direction::DOWN:  rotationDegrees = 180.f; break;
+    case Direction::LEFT:  rotationDegrees = 270.f; break;
+    }   
+    
+    sf::Vector2i p = body[0];
+    RoundedRectangleShape head({CELL_SIZE, CELL_SIZE}, 8);
+    head.setOrigin({CELL_SIZE / 2.f, CELL_SIZE / 2.f});
+    head.setPosition(sf::Vector2f((p.x * CELL_SIZE) % WINDOW_WIDTH, (p.y * CELL_SIZE) % WINDOW_HEIGHT));
+    head.setFillColor(sf::Color::Green);
+    head.setRotation(sf::degrees(rotationDegrees));
+    window.draw(head);
+
+    for (int i = 1; i < body.size(); i++) {
         sf::RectangleShape rect({CELL_SIZE, CELL_SIZE});
-        rect.setPosition(sf::Vector2f((p.x * CELL_SIZE) % WINDOW_WIDTH, (p.y * CELL_SIZE) % WINDOW_HEIGHT));
-        rect.setFillColor(sf::Color::Black);
+        rect.setPosition(sf::Vector2f((body[i].x * CELL_SIZE) % WINDOW_WIDTH, (body[i].y * CELL_SIZE) % WINDOW_HEIGHT));
+        rect.setFillColor(sf::Color::Green);
         window.draw(rect);
     }
 };

@@ -14,7 +14,7 @@ public:
      * @brief the underlying Food object first, before running the constructor body.
      * @param position Initial grid position of the food.
      */
-    poisonFood(sf::Vector2i position):Food(position), texture("assets/bomb.jpg"), sprite(texture){
+    poisonFood(sf::Vector2i position):Food(position), texture("assets/bomb.png"), sprite(texture){
         if (!texture.loadFromFile("assets/bomb.jpg")) {
             std::cout << "Failed to load food texture\n";
         } else {

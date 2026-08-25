@@ -95,7 +95,7 @@ void Game::processEvents(){
 
 void Game::render(){
     //clear the window
-    window.clear(sf::Color::White);
+    window.clear(sf::Color(192, 192, 192, 255));
 
     // draw the snake and food
     snake.draw(window);
@@ -105,7 +105,7 @@ void Game::render(){
 };
 
 void Game::update(){
-    if (clock.getElapsedTime().asSeconds() >= moveDelay) {
+    if (clock.getElapsedTime().asMilliseconds() >= moveDelay) {
         // update snake's position
         snake.changeDirection();
         snake.move();

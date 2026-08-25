@@ -15,7 +15,7 @@ public:
      * @brief Also creates a texture before sprite, and sprite before the growthFood constructor.
      * @param position Initial grid position of the food.
      */
-    growthFood(sf::Vector2i position):Food(position), texture("assets/mouse.jpeg"), sprite(texture){
+    growthFood(sf::Vector2i position):Food(position), texture("assets/mouse.png"), sprite(texture){
         if (!texture.loadFromFile("assets/mouse.jpeg")) {
             std::cout << "Failed to load food texture\n";
         } else {
