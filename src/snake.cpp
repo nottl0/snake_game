@@ -36,11 +36,13 @@ void Snake::draw(sf::RenderWindow& window) const {
     sf::Vector2i p = body[0];
     RoundedRectangleShape head({CELL_SIZE, CELL_SIZE}, 8);
     head.setOrigin({CELL_SIZE / 2.f, CELL_SIZE / 2.f});
-    head.setPosition(sf::Vector2f((p.x * CELL_SIZE) % WINDOW_WIDTH, (p.y * CELL_SIZE) % WINDOW_HEIGHT));
+    head.setPosition(sf::Vector2f(
+        (p.x * CELL_SIZE) % WINDOW_WIDTH + CELL_SIZE / 2.f,
+        (p.y * CELL_SIZE) % WINDOW_HEIGHT + CELL_SIZE / 2.f
+    ));
     head.setFillColor(sf::Color::Green);
     head.setRotation(sf::degrees(rotationDegrees));
     window.draw(head);
-
     for (int i = 1; i < body.size(); i++) {
         sf::RectangleShape rect({CELL_SIZE, CELL_SIZE});
         rect.setPosition(sf::Vector2f((body[i].x * CELL_SIZE) % WINDOW_WIDTH, (body[i].y * CELL_SIZE) % WINDOW_HEIGHT));
