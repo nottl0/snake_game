@@ -2,9 +2,15 @@
 
 // Stuff to add: 
 // Comment cpp files
+
 // change snake style
+    // added head
+    // adding tail + eyes?
+    // rotate the tail
+
 // check update time
 // fix initial position of food to not be on snake
+
 // having different fruits/bombs 
     // 2. shortener fruit
         // - check snake death cond-n

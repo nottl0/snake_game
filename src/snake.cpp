@@ -25,6 +25,7 @@ Snake::~Snake() = default;
 
 // Draws the snake on the game window. Doesn't show righ away, the double buffering of the window will handle that when display() is called in main loop
 void Snake::draw(sf::RenderWindow& window) const {
+    int bodyLength = body.size();
     float rotationDegrees = 0.f;
     switch (direction) {
     case Direction::UP:    rotationDegrees = 0.f;   break;
@@ -33,22 +34,54 @@ void Snake::draw(sf::RenderWindow& window) const {
     case Direction::LEFT:  rotationDegrees = 270.f; break;
     }   
     
-    sf::Vector2i p = body[0];
+    sf::Vector2i h = body[0];
+    sf::Vector2i t = body.back();
     RoundedRectangleShape head({CELL_SIZE, CELL_SIZE}, 8);
+    // Set the origin to the center of the cell to rotate around origin without misaligning head from body
+    // Only used for setRotation and setPosition
     head.setOrigin({CELL_SIZE / 2.f, CELL_SIZE / 2.f});
+    // Adjust the position to be shifted so that center of head is in the cell center
     head.setPosition(sf::Vector2f(
-        (p.x * CELL_SIZE) % WINDOW_WIDTH + CELL_SIZE / 2.f,
-        (p.y * CELL_SIZE) % WINDOW_HEIGHT + CELL_SIZE / 2.f
+        (h.x * CELL_SIZE) % WINDOW_WIDTH + CELL_SIZE / 2.f,
+        (h.y * CELL_SIZE) % WINDOW_HEIGHT + CELL_SIZE / 2.f
     ));
     head.setFillColor(sf::Color::Green);
     head.setRotation(sf::degrees(rotationDegrees));
     window.draw(head);
-    for (int i = 1; i < body.size(); i++) {
+
+    // Body movement
+    for (int i = 1; i < bodyLength - 1; i++) {
         sf::RectangleShape rect({CELL_SIZE, CELL_SIZE});
         rect.setPosition(sf::Vector2f((body[i].x * CELL_SIZE) % WINDOW_WIDTH, (body[i].y * CELL_SIZE) % WINDOW_HEIGHT));
         rect.setFillColor(sf::Color::Green);
         window.draw(rect);
     }
+
+    
+    if (bodyLength < 2){
+        return;
+    };
+
+    // Direction direction;
+    // sf::Vector2i difference = body[bodyLength - 2] - t;
+    // if (difference == {0, 1}){direction = Direction::UP;};
+    // else if (difference == {1, 0}){direction = Direction::RIGHT;};
+    // else if (difference == {0, -1}){direction = Direction::DOWN;};
+    // else{direction = Direction::LEFT;};
+    
+    sf::ConvexShape tail(3);
+    tail.setOrigin({CELL_SIZE / 2.f, CELL_SIZE / 2.f});
+    tail.setPosition(sf::Vector2f(
+        (t.x * CELL_SIZE) % WINDOW_WIDTH + CELL_SIZE / 2.f,
+        (t.y * CELL_SIZE) % WINDOW_HEIGHT + CELL_SIZE / 2.f
+    ));
+    
+    tail.setPoint(0, sf::Vector2f {0, CELL_SIZE / 2});
+    tail.setPoint(1, sf::Vector2f {CELL_SIZE, 0});
+    tail.setPoint(2, sf::Vector2f {CELL_SIZE, CELL_SIZE});
+    tail.setFillColor(sf::Color::Green);
+    window.draw(tail);
+    
 };
 
 // Moves the snake in the current movement direction 

@@ -18,14 +18,24 @@ public:
         if (index >= getPointCount()) return {};
 
         static const float pi = 3.141592654f;
+        // If only 1 cornerpoint present to avoid dividing by 0 specify a condition
         float deltaAngle = (m_cornerPointCount > 1) ? (90.f / (m_cornerPointCount - 1)) : 0.f;
 
+        // Identifying which center (corner) the index belongs to
         std::size_t centerIndex = index / m_cornerPointCount;
+
+        // The index of the point in the reference of that specific corner
         std::size_t localIndex = index % m_cornerPointCount;
 
         switch (centerIndex) {
+            // The order of indeces has to go clockwise, because otherwise even if 
+            // each corner is defined correctly, because of how sfml fills shapes
+            // it will look twisted
+            
             case 0: { // Top-Right, rounded
+                // The coordinates grow from left to right and from top to bottom
                 sf::Vector2f center = {m_size.x - m_radius, m_radius};
+                // Choose angle references to account from clockwise order of indeces 
                 float angleRad = (270.f + localIndex * deltaAngle) * pi / 180.f;
                 return {center.x + m_radius * std::cos(angleRad), center.y + m_radius * std::sin(angleRad)};
             }
@@ -43,40 +53,6 @@ public:
         }
         return {};
     }
-    // virtual sf::Vector2f getPoint(std::size_t index) const override {
-        // if (index >= getPointCount()) return {};
-
-        // float deltaAngle = 90.f / (m_cornerPointCount - 1);
-        // sf::Vector2f center;
-        // float angle_x, angle_y;
-        // unsigned int centerIndex = index / m_cornerPointCount;
-        // static const float pi = 3.141592654f;
-        // sf::Vector2f position;
-
-        // switch (centerIndex) {
-        //     case 0: {
-        //         // top right
-        //         center = {m_size.x - m_radius, m_radius};
-        //         break;
-        //     }
-        //     case 1: {
-        //         // top left
-        //         center = {m_radius, m_radius};
-        //         break;
-        //     }
-        //     case 2:
-        //         // bottom left
-        //         center = {m_radius, m_size.y - m_radius};
-        //         break;
-        //     case 3:
-        //         // bottom right
-        //         center = {m_size.x - m_radius, m_size.y - m_radius};
-        //         break;
-        //     }
-        //     float angle = (index % m_cornerPointCount) * deltaAngle * pi / 180.f + centerIndex * pi / 2.f;
-            
-        // return {center.x + m_radius * cos(angle), center.y - m_radius * sin(angle)};
-    // }
 
 private:
     void update() { Shape::update(); }
