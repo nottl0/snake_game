@@ -6,7 +6,8 @@
 // change snake style
     // added head
     // adding tail + eyes?
-    // rotate the tail
+    // fix tail roataion
+    // fix tail dissapearance when growing
 
 // check update time
 // fix initial position of food to not be on snake

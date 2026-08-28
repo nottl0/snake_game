@@ -62,12 +62,19 @@ void Snake::draw(sf::RenderWindow& window) const {
         return;
     };
 
-    // Direction direction;
-    // sf::Vector2i difference = body[bodyLength - 2] - t;
-    // if (difference == {0, 1}){direction = Direction::UP;};
-    // else if (difference == {1, 0}){direction = Direction::RIGHT;};
-    // else if (difference == {0, -1}){direction = Direction::DOWN;};
-    // else{direction = Direction::LEFT;};
+    Direction direction;
+    sf::Vector2i difference = body[bodyLength - 2] - t;
+    if (difference == sf::Vector2i{0, -1}){direction = Direction::UP;}
+    else if (difference == sf::Vector2i{1, 0}){direction = Direction::RIGHT;}
+    else if (difference == sf::Vector2i{0, 1}){direction = Direction::DOWN;}
+    else {direction = Direction::LEFT;};
+
+    switch (direction) {
+    case Direction::UP:    rotationDegrees = 0.f;   break;
+    case Direction::RIGHT: rotationDegrees = 90.f;  break;
+    case Direction::DOWN:  rotationDegrees = 180.f; break;
+    case Direction::LEFT:  rotationDegrees = 270.f; break;
+    } 
     
     sf::ConvexShape tail(3);
     tail.setOrigin({CELL_SIZE / 2.f, CELL_SIZE / 2.f});
@@ -76,10 +83,11 @@ void Snake::draw(sf::RenderWindow& window) const {
         (t.y * CELL_SIZE) % WINDOW_HEIGHT + CELL_SIZE / 2.f
     ));
     
-    tail.setPoint(0, sf::Vector2f {0, CELL_SIZE / 2});
+    tail.setPoint(0, sf::Vector2f {0, 0});
     tail.setPoint(1, sf::Vector2f {CELL_SIZE, 0});
-    tail.setPoint(2, sf::Vector2f {CELL_SIZE, CELL_SIZE});
+    tail.setPoint(2, sf::Vector2f {CELL_SIZE / 2, CELL_SIZE});
     tail.setFillColor(sf::Color::Green);
+    tail.setRotation(sf::degrees(rotationDegrees));
     window.draw(tail);
     
 };
