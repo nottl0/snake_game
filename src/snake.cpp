@@ -57,17 +57,20 @@ void Snake::draw(sf::RenderWindow& window) const {
         window.draw(rect);
     }
 
-    
+    // Snake only has a head
     if (bodyLength < 2){
         return;
     };
 
     Direction direction;
     sf::Vector2i difference = body[bodyLength - 2] - t;
-    if (difference == sf::Vector2i{0, -1}){direction = Direction::UP;}
-    else if (difference == sf::Vector2i{1, 0}){direction = Direction::RIGHT;}
-    else if (difference == sf::Vector2i{0, 1}){direction = Direction::DOWN;}
-    else {direction = Direction::LEFT;};
+    // If the snake wraps around a window don't change direction
+    if ((abs(difference.x) <= 1) & (abs(difference.y) <= 1)){
+        if (difference == sf::Vector2i{0, -1}){direction = Direction::UP;}
+        else if (difference == sf::Vector2i{1, 0}){direction = Direction::RIGHT;}
+        else if (difference == sf::Vector2i{0, 1}){direction = Direction::DOWN;}
+        else {direction = Direction::LEFT;};
+    }
 
     switch (direction) {
     case Direction::UP:    rotationDegrees = 0.f;   break;
