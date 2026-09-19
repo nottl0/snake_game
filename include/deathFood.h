@@ -3,19 +3,19 @@
 #include <iostream>
 
 /**
- * @class poisonFood
- * @brief A subclass of class Food, with effect of shrinking the snake's legnth by half
+ * @class deathFood 
+ * @brief A subclass of class Food, with effect of killing the snake
  */
 
-class poisonFood: public Food{
+class deathFood: public Food{
 public:
     /**
-     * @brief Constructs a poisonFood object using member initializer list to initialize
+     * @brief Constructs a deathFood object using member initializer list to initialize
      * @brief the underlying Food object first, before running the constructor body.
      * @param position Initial grid position of the food.
      */
-    poisonFood(sf::Vector2i position):Food(position), texture("assets/poison.png"), sprite(texture){
-        if (!texture.loadFromFile("assets/poison.png")) {
+    deathFood(sf::Vector2i position):Food(position), texture("assets/bomb.png"), sprite(texture){
+        if (!texture.loadFromFile("assets/bomb.png")) {
             std::cout << "Failed to load food texture\n";
         } else {
             std::cout << "Texture loaded OK, size: " << texture.getSize().x << "x" << texture.getSize().y << "\n";

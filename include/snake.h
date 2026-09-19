@@ -46,6 +46,11 @@ public:
     void shrink();
 
     /**
+     * @brief Kill the snake.
+     */
+    void kill();
+
+    /**
      * @brief Changes the direction where the snake is going based on the newDirection.
      */
     void changeDirection();

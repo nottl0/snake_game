@@ -1,6 +1,7 @@
 #include "game.h"
 #include "growthFood.h"
 #include "poisonFood.h"
+#include "deathFood.h"
 #include <iostream>
 #include <memory>
 
@@ -35,7 +36,8 @@ void Game::spawnRandomFood(sf::Vector2i pos) {
     //A vector containing functions that take an sf::Vector2i and return a std::unique_ptr<Food>
     static std::vector<std::function<std::unique_ptr<Food>(sf::Vector2i)>> factories = {
         [](sf::Vector2i p) { return std::make_unique<growthFood>(p); },
-        [](sf::Vector2i p) { return std::make_unique<poisonFood>(p); }
+        [](sf::Vector2i p) { return std::make_unique<poisonFood>(p); },
+        [](sf::Vector2i p) { return std::make_unique<deathFood>(p); }
     };
 
     std::uniform_int_distribution<int> dist(0, factories.size() - 1);
@@ -57,7 +59,7 @@ void Game::drawEndGameWindow(){
     window.clear(sf::Color::White);
 
     sf::Text text(font, "Game Over\nPress R to Restart");
-    text.setCharacterSize(40);
+    text.setCharacterSize(20);
     text.setStyle(sf::Text::Bold);
     text.setFillColor(sf::Color::Black);
 

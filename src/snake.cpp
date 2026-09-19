@@ -138,7 +138,13 @@ void Snake::grow() {
 };
 
 void Snake::shrink() {
-    body.pop_back();
+    int snakeLen = body.size();
+    int halfLen = snakeLen / 2;
+    body.erase(body.begin() + halfLen, body.end());
+};
+
+void Snake::kill() {
+    body.erase(body.begin(), body.end());
 };
 
 sf::Vector2i Snake::getHeadPos() const{
@@ -151,7 +157,7 @@ bool Snake::getPulse() const{
         return false;
     }
     sf::Vector2i headPos = getHeadPos();
-    for (int i=1; i<snakeLen; ++i) {
+    for (int i=1; i < snakeLen; ++i) {
         if (headPos == body[i]){
             return false;
         }
