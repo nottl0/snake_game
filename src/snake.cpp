@@ -98,6 +98,10 @@ void Snake::draw(sf::RenderWindow& window) const {
 // Moves the snake in the current movement direction 
 void Snake::move() {
     int snakeLen = body.size();
+    if (shouldGrow> 0) {
+        body.push_back(body.back());   
+        --shouldGrow;
+    }
     for (int i = snakeLen - 1; i > 0; --i) {
         body[i] = body[i-1];
     }
@@ -130,9 +134,7 @@ void Snake::setNewDirection(Direction direction) {
 
 void Snake::grow() {
     // Grow the snake in length 
-    int snakeLen = body.size();
-    sf::Vector2i tmp = body[snakeLen - 1];
-    body.push_back(tmp);
+    shouldGrow = 1;
 };
 
 void Snake::shrink() {
@@ -145,6 +147,9 @@ sf::Vector2i Snake::getHeadPos() const{
 
 bool Snake::getPulse() const{
     int snakeLen = body.size();
+    if (snakeLen == 0){
+        return false;
+    }
     sf::Vector2i headPos = getHeadPos();
     for (int i=1; i<snakeLen; ++i) {
         if (headPos == body[i]){

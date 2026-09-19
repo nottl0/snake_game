@@ -22,7 +22,7 @@ class Snake {
     Direction direction;            ///> Current direction of the snakes movement (where the head is pointing).
     std::vector<sf::Vector2i> body; ///> Positions of the game window cells occupied by the snake's body.
     Direction newDirection;         ///> Where the direction of the snakes movement should point in the next step. Set by player.
-    
+    int shouldGrow = 0;
 public:
     /**
      * @brief Constructs a Snake object.

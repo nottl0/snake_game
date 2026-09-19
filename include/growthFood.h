@@ -16,7 +16,7 @@ public:
      * @param position Initial grid position of the food.
      */
     growthFood(sf::Vector2i position):Food(position), texture("assets/mouse.png"), sprite(texture){
-        if (!texture.loadFromFile("assets/mouse.jpeg")) {
+        if (!texture.loadFromFile("assets/mouse.png")) {
             std::cout << "Failed to load food texture\n";
         } else {
             std::cout << "Texture loaded OK, size: " << texture.getSize().x << "x" << texture.getSize().y << "\n";
